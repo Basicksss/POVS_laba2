@@ -34,9 +34,11 @@ int WINAPI  WinMain(
 
     // Create Main window
     HWND hWnd = ::CreateWindow(szClass, "Test", WS_OVERLAPPEDWINDOW,
-        (screen_width - (screen_width * WINDOW_WIDTH)) / 2,
-        (screen_heigth - (screen_heigth * WINDOW_HEIGTH)) / 2,
-        screen_width * WINDOW_WIDTH, screen_heigth * WINDOW_HEIGTH, NULL, NULL, hInstance, NULL);
+        (int)((screen_width - (screen_width * WINDOW_WIDTH)) / 2),
+        (int)((screen_heigth - (screen_heigth * WINDOW_HEIGTH)) / 2),
+        (int)(screen_width * WINDOW_WIDTH),
+        (int)(screen_heigth * WINDOW_HEIGTH),
+        NULL, NULL, hInstance, NULL);
     if (hWnd == NULL) {
         return -1;
     }
@@ -60,8 +62,20 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         InvalidateRect(hWnd, NULL, TRUE);
         return 0;
     case WM_PAINT:
+    {
         PAINTSTRUCT ps;
         HDC hdc = BeginPaint(hWnd, &ps);
+        HPEN hPen = ::CreatePen(PS_SOLID, 2, RGB(0, 0, 0));
+        HGDIOBJ oPen = ::SelectObject(hdc, hPen);
+        
+        //Отрисовка сетки
+        if (GRID == 4) {
+
+        }
+
+        FillRect(hdc, &ps.rcPaint, (HBRUSH)(COLOR_WINDOW + 1));
+        EndPaint(hWnd, &ps);
+    }
         return 0;
 
     case WM_DESTROY:
