@@ -7,7 +7,7 @@
 #include <Windows.h>
 
 #define SCLASS "a;eohgqeruiopugoqeig"
-#define GRID 4 //Сетка
+const int GRID = 4; //Сетка
 #define WINDOW_HEIGTH 0.5 //Высота
 #define WINDOW_WIDTH 0.5 //Ширина
 
@@ -46,7 +46,6 @@ int WINAPI  WinMain(
     }
 
     ::ShowWindow(hWnd, nCmdShow);
-    // ::UpdateWindow(hWnd);
 
     MSG msg;
     while (::GetMessage(&msg, NULL, 0, 0)) { // idle
@@ -63,9 +62,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     case WM_CREATE:
         SetWindowLong(hWnd, GWLP_USERDATA, -1);
         return 0;
-    case WM_SIZE:
-        InvalidateRect(hWnd, NULL, true);
-        return 0;
+    //case WM_SIZE:
+    //    InvalidateRect(hWnd, NULL, true);
+    //    return 0;
     case WM_PAINT:
     {
         PAINTSTRUCT ps;
